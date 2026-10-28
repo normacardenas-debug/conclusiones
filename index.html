@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taller: Cómo escribir las Conclusiones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+<style>
+  :root{
+    --azul:#0055B7;--azul-osc:#003d85;--azul-claro:#e9f2fb;--celeste:#8FC6E8;
+    --morado:#9F26B4;--morado-claro:#f6ebf8;--verde:#3FAE29;--verde-texto:#2E7D1F;--verde-claro:#eafbe6;
+    --rojo:#b0392b;--rojo-claro:#fdeeee;--ambar-texto:#7a5d12;--ambar-claro:#fff8e6;
+    --tinta:#0d1b2a;--texto:#1a232b;--texto-2:#3a4551;--texto-3:#55606b;--borde:#e2e6ea;--fondo-alt:#f9fafb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;font-family:'Open Sans',sans-serif;color:var(--texto);line-height:1.6;overflow-x:hidden}
+  a{color:var(--azul)}
+  h1,h2,h3,h4{font-family:'Roboto Condensed',sans-serif;margin:0;line-height:1.15;color:var(--tinta)}
+  button{font-family:inherit}
+  html{scroll-behavior:smooth}
+  :focus-visible{outline:3px solid var(--azul);outline-offset:2px}
+  .skip-link{position:absolute;left:-999px;top:0;background:var(--azul);color:#fff;padding:10px 18px;z-index:200;border-radius:0 0 6px 0}
+  .skip-link:focus{left:0}
+  section[id]{scroll-margin-top:70px}
+  main > section{padding:64px clamp(20px,6vw,56px)}
+  main > section > div{width:min(100%,1080px);margin:0 auto}
+  .alt{background:var(--fondo-alt)}
+  .eyebrow{display:inline-block;font:700 12px 'Open Sans',sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:20px;margin-bottom:18px}
+  .ey-ambar{background:#fff;color:var(--ambar-texto);border:1px solid #f0dca6}
+  .ey-azul{background:var(--azul-claro);color:var(--azul)}
+  .ey-morado{background:var(--morado-claro);color:var(--morado)}
+  .ey-verde{background:var(--verde-claro);color:var(--verde-texto)}
+  .h2{font-size:clamp(26px,3.2vw,36px);margin-bottom:10px}
+  .h3{font-size:20px;margin:0 0 8px}
+  .lead{font-size:17px;line-height:1.7;color:var(--texto-3);margin:0 0 26px}
+  .card{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:20px 22px}
+  .card p{font-size:16px;line-height:1.65;color:var(--texto-2);margin:0}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+  .small{font-size:14px;color:var(--texto-3)}
+  .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* Botones */
+  .primary-btn{cursor:pointer;border:none;background:var(--azul);color:#fff;font:700 14px 'Open Sans',sans-serif;padding:12px 20px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;min-height:44px}
+  .primary-btn:hover{background:var(--azul-osc)}
+  .sec-btn{cursor:pointer;border:1.5px solid var(--azul);background:#fff;color:var(--azul);font:700 14px 'Open Sans',sans-serif;padding:11px 18px;border-radius:8px;min-height:44px}
+  .sec-btn:hover{background:var(--azul-claro)}
+  .ghost-btn{cursor:pointer;border:1.5px dashed #b7c2cc;background:transparent;color:var(--texto-3);font:700 13px 'Open Sans',sans-serif;padding:11px 18px;border-radius:8px;min-height:44px}
+  .ghost-btn:hover{border-color:var(--azul);color:var(--azul)}
+  .del-btn{cursor:pointer;border:none;background:transparent;color:var(--rojo);font:600 13px 'Open Sans',sans-serif;padding:8px 10px;border-radius:6px;min-height:44px}
+  .del-btn:hover{background:var(--rojo-claro)}
+
+  /* Navegación */
+  .nav{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--borde);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  .nav-row{display:flex;gap:4px;overflow-x:auto;padding:0 clamp(20px,6vw,56px)}
+  .navLink{flex:none;padding:14px 13px;font:600 13.5px 'Open Sans',sans-serif;color:var(--texto);text-decoration:none;border-bottom:3px solid transparent;white-space:nowrap}
+  .navLink:hover{color:var(--azul)}
+  .navLink[aria-current="true"]{color:var(--azul);border-bottom-color:var(--azul)}
+
+  /* Tabla */
+  .tabla{width:100%;border-collapse:collapse;font-size:15px}
+  .tabla th{background:var(--tinta);color:#fff;text-align:left;padding:11px 14px;font:700 13.5px 'Open Sans',sans-serif;vertical-align:top}
+  .tabla td{padding:11px 14px;border-top:1px solid #eef1f4;vertical-align:top;line-height:1.55;color:var(--texto-2);background:#fff}
+  .scroll-x{overflow-x:auto;border-radius:10px;border:1px solid var(--borde)}
+  .lista-simple{margin:0;padding-left:20px;font-size:16px;line-height:1.7;color:var(--texto-2)}
+  .lista-simple li{margin-bottom:6px}
+
+  /* Estructura en tres partes */
+  .pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:24px}
+  .paso{border-radius:12px;padding:22px 24px;background:#fff;border:1px solid var(--borde);border-top:5px solid var(--c);display:flex;flex-direction:column}
+  .paso .num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--c);color:#fff;font:700 15px 'Roboto Condensed',sans-serif;margin-bottom:12px}
+  .paso h3{font-size:19px;margin-bottom:8px;color:var(--c)}
+  .paso > p{font-size:15.5px;line-height:1.6;color:var(--texto-2);margin:0 0 12px}
+  .paso details{margin-top:auto;border-top:1px solid var(--borde);padding-top:10px}
+  .paso summary{cursor:pointer;font:700 13.5px 'Open Sans',sans-serif;color:var(--azul);min-height:44px;display:flex;align-items:center}
+  .vanova{font-size:14.5px;line-height:1.55;color:var(--texto-2);margin:6px 0 0}
+  .vanova strong{display:block;margin:8px 0 4px;color:var(--tinta)}
+  .vanova ul{margin:0;padding-left:18px}
+  .vanova li{margin-bottom:4px}
+  .aviso{display:flex;gap:14px;align-items:flex-start;background:var(--azul-claro);border-left:5px solid var(--azul);border-radius:0 10px 10px 0;padding:18px 20px}
+  .aviso p{margin:0;font-size:16px;line-height:1.65;color:var(--tinta)}
+  .formula{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+  .formula span{background:#fff;border:1px solid #c7d7ea;border-radius:8px;padding:8px 12px;font:600 14.5px 'Open Sans',sans-serif;color:var(--tinta)}
+  .formula b{color:var(--azul);font-size:18px}
+
+  /* Plegables */
+  details.plegable{background:#fff;border:1px dashed #b6c6d6;border-radius:10px;padding:0 18px;margin:16px 0}
+  details.plegable > summary{cursor:pointer;padding:14px 0;font:700 14px 'Open Sans',sans-serif;color:var(--azul);min-height:44px}
+  details.plegable[open]{padding-bottom:16px}
+  .ej-bloque{border-left:4px solid var(--c);background:#fff;border-radius:0 8px 8px 0;padding:12px 16px;margin:0 0 12px}
+  .ej-bloque .et{display:block;font:700 12px 'Open Sans',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--c);margin-bottom:4px}
+  .ej-bloque p{margin:0;font-size:15px;line-height:1.7;color:var(--texto-2)}
+  mark.res{background:var(--azul-claro);color:inherit;border-bottom:2px solid var(--azul);padding:0 2px}
+  mark.teo{background:var(--morado-claro);color:inherit;border-bottom:2px dashed var(--morado);padding:0 2px}
+  .leyenda{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--texto-2);margin:0 0 14px}
+  .texto-original{background:#fff;border:1px solid var(--borde);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.7;color:var(--texto-2)}
+  .texto-original p{margin:0 0 12px}
+  mark.mk{padding:2px 4px;border-radius:3px;color:#1a232b;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  .mk1{background:#cfe4fb} .mk2{background:#d9f0cf} .mk3{background:#ffe2d2} .mk4{background:#e6dbf7}
+  .mk5{background:#ffe9a8} .mk6{background:#f6d0cb} .mk7{background:#d3eeee}
+  sup.mkr{font:700 10.5px 'Open Sans',sans-serif;color:var(--tinta);margin-left:3px;background:#fff;border:1px solid #b7c2cc;border-radius:4px;padding:0 4px}
+  .quiz-cita.mk1,.quiz-cita.mk2,.quiz-cita.mk3,.quiz-cita.mk4,.quiz-cita.mk5,.quiz-cita.mk6,.quiz-cita.mk7{border-left-color:#8a96a3}
+
+  /* Quiz */
+  .quiz{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:20px 22px;margin-bottom:14px}
+  .quiz-cita{background:#f4f6f8;border-left:4px solid #c9d3db;border-radius:0 8px 8px 0;padding:12px 16px;font-size:15px;line-height:1.65;color:var(--texto-2);margin:0 0 12px}
+  .quiz-p{font:700 16px 'Roboto Condensed',sans-serif;color:var(--tinta);margin:0 0 12px;line-height:1.4}
+  .quiz-ops{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
+  .opcion{min-height:44px;padding:11px 14px;border-radius:8px;font:600 14px 'Open Sans',sans-serif;cursor:pointer;text-align:left;background:#fff;border:1.5px solid #d7dee5;color:var(--texto)}
+  .opcion:hover{border-color:var(--azul)}
+  .opcion[aria-pressed="true"].ok{border-color:var(--verde-texto);background:var(--verde-claro)}
+  .opcion[aria-pressed="true"].no{border-color:var(--rojo);background:var(--rojo-claro)}
+  .fb{margin-top:14px;padding:14px 16px;border-radius:8px;font-size:14.5px;line-height:1.6;color:var(--texto-2)}
+  .fb:empty{display:none}
+  .fb.ok{background:var(--verde-claro)} .fb.no{background:var(--ambar-claro)}
+  .fb strong{display:block;margin-bottom:2px;color:var(--tinta)}
+
+  /* Antes y después */
+  .ba{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:760px){.ba{grid-template-columns:1fr 1fr}}
+  .ba-box{border-radius:10px;padding:16px 18px;font-size:15px;line-height:1.65;color:var(--texto-2)}
+  .ba-box .et{display:block;font:700 12.5px 'Open Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+  .ba-mal{background:var(--rojo-claro)} .ba-mal .et{color:var(--rojo)}
+  .ba-bien{background:var(--verde-claro)} .ba-bien .et{color:var(--verde-texto)}
+
+  /* Plantilla */
+  .tpl{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:22px 24px;margin-bottom:18px;border-left:5px solid var(--c)}
+  .tpl-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .tpl-head h3{font-size:20px;color:var(--c)}
+  .tpl-fuente{font-size:14px;color:var(--texto-3);margin:0 0 16px}
+  .campo{margin-bottom:16px}
+  .campo > label,.campo > legend{display:block;font:700 13px 'Open Sans',sans-serif;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;color:var(--tinta);padding:0}
+  .campo .ayuda{font-size:14px;color:var(--texto-3);margin:0 0 8px}
+  .campo textarea,.campo input[type=text]{width:100%;border-radius:8px;border:1.5px solid #d7dee5;padding:12px 14px;font:15px/1.55 'Open Sans',sans-serif;color:var(--texto)}
+  .campo textarea{min-height:96px;resize:vertical}
+  .campo textarea:focus,.campo input[type=text]:focus{outline:none;border-color:var(--azul);box-shadow:0 0 0 3px rgba(0,85,183,.18)}
+  fieldset.campo{border:0;margin:0 0 16px;padding:0;min-width:0}
+  .logro{display:flex;gap:8px;flex-wrap:wrap}
+  .logro label{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border:1.5px solid #d7dee5;border-radius:8px;cursor:pointer;font-size:14.5px}
+  .logro input{width:18px;height:18px;accent-color:var(--azul)}
+  .logro label:has(input:checked){border-color:var(--azul);background:var(--azul-claro);font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .chipBtn{cursor:pointer;border:1px solid #c9d3db;background:#f4f6f8;color:var(--texto-2);font:600 13px 'Open Sans',sans-serif;padding:8px 12px;border-radius:14px;text-align:left;min-height:36px}
+  .chipBtn:hover{background:var(--azul-claro);border-color:var(--azul);color:var(--azul)}
+  .vista-previa{background:var(--fondo-alt);border:1px solid var(--borde);border-radius:8px;padding:16px 18px;font-size:15px;line-height:1.75;color:var(--texto-2);white-space:pre-wrap;overflow-wrap:anywhere;margin-top:12px}
+  .senales{background:var(--ambar-claro);border:1px solid #f0dca6;border-radius:8px;padding:14px 18px;margin-top:12px;font-size:14.5px;line-height:1.6;color:var(--tinta)}
+  .senales ul{margin:6px 0 0;padding-left:18px}
+  .nota{font-size:14px;color:var(--texto-3)}
+  .acciones{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
+  .aviso-guardado{background:var(--ambar-claro);border:1px solid #f0dca6;border-radius:10px;padding:14px 18px;font-size:15px;line-height:1.6;color:var(--tinta);margin:0 0 22px}
+
+  /* Errores y lista */
+  /* 7 tarjetas: 4 + 3 en escritorio; en dos columnas la última ocupa el ancho completo */
+  .errores{display:grid;grid-template-columns:1fr;gap:14px;align-items:start}
+  @media(min-width:600px){.errores{grid-template-columns:repeat(2,1fr)} .errores .err:last-child:nth-child(odd){grid-column:1 / -1}}
+  @media(min-width:960px){.errores{grid-template-columns:repeat(4,1fr)} .errores .err:last-child:nth-child(odd){grid-column:auto}}
+  .err{background:#fff;border:1px solid var(--borde);border-top:4px solid var(--rojo);border-radius:10px;padding:16px 18px}
+  .err .n{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--rojo-claro);color:var(--rojo);align-items:center;justify-content:center;font:700 13px 'Roboto Condensed',sans-serif;margin-bottom:8px}
+  .err h3{font-size:17px;margin:0 0 8px}
+  .err .mal{font-size:14.5px;line-height:1.55;color:var(--texto-2);font-style:italic;margin:0}
+  .err summary{cursor:pointer;font:700 13.5px 'Open Sans',sans-serif;color:var(--azul);min-height:44px;display:flex;align-items:center;margin-top:6px}
+  .err .bien{font-size:14.5px;line-height:1.6;color:var(--texto-2);margin:0;background:var(--verde-claro);border-radius:8px;padding:10px 12px}
+  .check{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--borde);border-radius:10px;padding:14px 16px;cursor:pointer;min-height:44px;font-size:15.5px;line-height:1.5;color:var(--texto-2)}
+  .check input{width:19px;height:19px;flex:none;margin-top:2px;accent-color:var(--verde-texto)}
+  .check:has(input:checked){border-color:var(--verde-texto);background:var(--verde-claro)}
+  .refs p{font-size:14.5px;line-height:1.6;color:var(--texto-2);margin:0 0 10px;padding-left:28px;text-indent:-28px}
+
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  @media print{.nav,.acciones,.chips,.del-btn,.ghost-btn,.skip-link{display:none!important} details.plegable{border:0} main > section{padding:24px 0}}
+</style>
+</head>
+<body>
+
+<a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
+
+<header style="background:var(--azul);color:#fff;padding:42px clamp(20px,6vw,56px) 34px">
+  <p style="margin:0 0 6px;font:600 12px/1.4 'Open Sans',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#cfe4f6">Seminario de Grado · SEM2-2026</p>
+  <h1 style="font-size:clamp(32px,5vw,52px);line-height:1.05;color:#fff">Conclusiones</h1>
+  <p style="margin:12px 0 0;font-size:18px;line-height:1.5;color:#fff">Recurso para cerrar tu investigación a partir de tus objetivos, tus resultados y tu marco teórico.</p>
+  <p style="margin:10px 0 0;font-size:16px;line-height:1.5;color:#e9f2fb">Carreras Pedagógicas · ULagos</p>
+</header>
+
+<nav class="nav" aria-label="Fases del taller">
+  <div class="nav-row" id="navRow"></div>
+</nav>
+
+<main id="contenido-principal">
+
+<!-- FASE 1 · ACTIVA -->
+<section id="antes" style="background:var(--ambar-claro)">
+  <div>
+    <span class="eyebrow ey-ambar">Fase 1 · Activa lo que sabes</span>
+    <h2 class="h2">Las conclusiones no son un resumen de la investigación</h2>
+    <p class="lead">Son el capítulo donde el estudio se cierra, volviendo a los objetivos que planteaste al inicio. Por eso no se escriben desde cero, se escriben desde lo que ya está en tus resultados y en tu discusión.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3 class="h3">Lo que necesitas tener a mano</h3>
+        <ul class="lista-simple">
+          <li><strong>Tus objetivos y tu pregunta de investigación</strong>, en su versión final. Son los que ordenan las conclusiones.</li>
+          <li><strong>Tus resultados escritos</strong>, con sus tablas o sus citas. Sin resultados no hay nada que concluir.</li>
+          <li><strong>Tu discusión</strong>, con los autores que usaste para interpretar cada categoría o dimensión.</li>
+        </ul>
+      </div>
+      <div class="scroll-x">
+        <table class="tabla">
+          <caption class="visually-hidden">Diferencia entre la discusión y las conclusiones</caption>
+          <thead><tr><th scope="col">En la discusión</th><th scope="col">En las conclusiones</th></tr></thead>
+          <tbody>
+            <tr><td>Interpretas cada resultado y lo contrastas con los autores.</td><td>Dices si cada objetivo se logró y qué resultados lo muestran.</td></tr>
+            <tr><td>El orden lo dan tus categorías o dimensiones.</td><td>El orden lo dan tus objetivos.</td></tr>
+            <tr><td>Desarrollas citas, cifras y autores.</td><td>Retomas lo que ya presentaste, sin datos ni autores nuevos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reconoce" style="background:var(--ambar-claro);padding-top:0">
+  <div>
+    <h2 class="h2">Reconoce las partes en una conclusión de un seminario anterior</h2>
+    <p class="lead">Este texto es la conclusión de un seminario anterior, abreviada y anonimizada. Tiene aciertos y problemas, por eso sirve para practicar. Las citas se dejaron como (Autor, año). Decide qué parte de las conclusiones intenta cubrir cada fragmento. Si te equivocas, recibes una pista y puedes intentarlo otra vez.</p>
+    <details class="plegable" open>
+      <summary>Conclusión completa, con cada fragmento numerado y en su color</summary>
+      <div class="texto-original">
+        <p><mark class="mk mk1">Esta investigación tuvo como principal objetivo analizar la percepción de docentes de enseñanza básica y media respecto a la alteración de la convivencia escolar dentro del aula y cómo esta se puede abordar. Mediante las entrevistas realizadas pudimos concluir que se pudo alcanzar lo planteado en el objetivo general, ya que, gracias al instrumento que aplicamos, fuimos capaces de conocer en profundidad la percepción de los docentes entrevistados.</mark><sup class="mkr">1</sup></p>
+        <p><mark class="mk mk2">Del mismo modo, se logró cumplir todos los objetivos específicos presentados, los cuales fueron abordados con éxito.</mark><sup class="mkr">2</sup></p>
+        <p><mark class="mk mk3">En las respuestas, los profesores resaltaron la implementación ineficaz de las normativas educativas y destacaron la importancia de las capacitaciones interactivas y contextualizadas (Autor et al., año). Se recalca el poco apoyo institucional que reciben los docentes al lidiar con estas situaciones, y aparecieron diferencias en el acceso a recursos según el liderazgo de cada establecimiento.</mark><sup class="mkr">3</sup></p>
+        <p><mark class="mk mk4">Con respecto a los docentes que fueron parte de nuestras entrevistas, inicialmente eran seis profesores de dos colegios públicos y finalmente participaron cuatro. Cabe destacar que tres de los cuatro ejercen tanto en enseñanza básica como en enseñanza media, por lo que debimos modificar la muestra, que originalmente se centraba solamente en profesores de enseñanza media.</mark><sup class="mkr">4</sup></p>
+        <p><mark class="mk mk5">Nos vimos en la obligación de cambiar uno de los establecimientos, dado que quien podía autorizar no se encontraba presente y la propuesta no fue aceptada. En el segundo establecimiento la autorización se consiguió de inmediato. Al momento de acudir a las reuniones previamente coordinadas, algunas entrevistas se cancelaron por temas de horario o por emergencias.</mark><sup class="mkr">5</sup></p>
+        <p><mark class="mk mk6">Como futuras docentes, consideramos que ninguna persona debería lidiar con este tipo de abuso y ser minimizada. Estimamos pertinente la implementación de una ley que realmente proteja la integridad del equipo docente.</mark><sup class="mkr">6</sup></p>
+        <p style="margin:0"><mark class="mk mk7">Nuestros hallazgos destacan la necesidad de implementar capacitación continua en estrategias de gestión de conflictos. Además, este estudio aporta perspectivas valiosas para futuras investigaciones y el diseño de políticas educativas.</mark><sup class="mkr">7</sup></p>
+      </div>
+    </details>
+    <div id="quizReconoce"></div>
+  </div>
+</section>
+
+<!-- FASE 2 · MODELO -->
+<section id="estructura">
+  <div>
+    <span class="eyebrow ey-azul">Fase 2 · El modelo</span>
+    <h2 class="h2">Tus conclusiones responden a tus objetivos</h2>
+    <p class="lead">Las conclusiones vuelven a los objetivos y dicen, uno por uno, si se lograron y qué resultados lo muestran. Se escriben en este orden. Abre cada tarjeta si quieres ver qué va y qué no va en cada parte.</p>
+
+    <div class="pasos" id="pasos"></div>
+
+    <div class="aviso">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--azul)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;margin-top:2px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <div>
+        <p><strong>Cada conclusión se sustenta en tus resultados y en tus referentes teóricos.</strong> Decir que un objetivo se logró no basta, hay que mostrar con qué resultado. Si una afirmación no se puede mostrar con un resultado de tu estudio, no va en las conclusiones.</p>
+        <div class="formula" aria-label="Fórmula: grado de logro, más resultado que lo muestra, más referente teórico">
+          <span>¿Se logró?</span><b aria-hidden="true">+</b><span>Resultado que lo muestra</span><b aria-hidden="true">+</b><span>Referente teórico</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ejemplo" class="alt">
+  <div>
+    <span class="eyebrow ey-azul">Fase 2 · El modelo</span>
+    <h2 class="h2">Apoyo opcional: la misma conclusión, reescrita</h2>
+    <p class="lead">Es la conclusión que acabas de revisar, ordenada según los objetivos y escrita en forma impersonal. Los objetivos específicos se reconstruyeron para el ejemplo. Las marcas muestran de dónde sale cada afirmación.</p>
+    <details class="plegable" style="background:#fff">
+      <summary>Ver el ejemplo resuelto</summary>
+      <p class="leyenda"><span><mark class="res">Resultado</mark>, viene de tu capítulo de resultados</span><span><mark class="teo">Referente teórico</mark>, viene de tu marco teórico</span></p>
+      <div class="ej-bloque" style="--c:var(--azul)">
+        <span class="et">1 · Objetivo general</span>
+        <p>El objetivo general, analizar la percepción de docentes de enseñanza básica y media sobre la alteración de la convivencia escolar en el aula y las formas de abordarla, se logró. <mark class="res">Los cuatro docentes entrevistados describen la implementación de las normativas de convivencia como ineficaz y un apoyo institucional insuficiente para enfrentar estas situaciones</mark>, lo que es coherente con <mark class="teo">lo planteado por (Autor, año) sobre el rol del apoyo institucional en la convivencia escolar</mark>. En síntesis, la percepción de estos docentes es que la convivencia se aborda principalmente desde el aula, con escaso respaldo de la institución.</p>
+      </div>
+      <div class="ej-bloque" style="--c:var(--morado)">
+        <span class="et">2 · Objetivo específico 1</span>
+        <p>El primer objetivo específico, describir cómo valoran los docentes las capacitaciones sobre convivencia escolar, se logró. <mark class="res">Los docentes valoran las capacitaciones contextualizadas por sobre las generales</mark>, en línea con <mark class="teo">(Autor et al., año), quienes destacan la importancia de las capacitaciones interactivas y contextualizadas</mark>.</p>
+      </div>
+      <div class="ej-bloque" style="--c:var(--morado)">
+        <span class="et">2 · Objetivo específico 2</span>
+        <p>El segundo objetivo específico, comparar el apoyo institucional en ambos establecimientos, se logró parcialmente. <mark class="res">Se observa una coincidencia en la falta de apoyo institucional y una diferencia en el acceso a recursos, asociada a la forma de gestión de cada establecimiento</mark>. La comparación quedó acotada porque uno de los establecimientos debió reemplazarse durante el trabajo de campo.</p>
+      </div>
+      <div class="ej-bloque" style="--c:var(--verde-texto)">
+        <span class="et">3 · Síntesis final</span>
+        <p>Participaron cuatro de los seis docentes previstos, seleccionados por conveniencia, por lo que los resultados describen a estos docentes y no se extienden al resto de sus establecimientos. Facilitó el trabajo que uno de los establecimientos contara con una persona designada para autorizar proyectos de tesis, mientras que la disponibilidad horaria de los docentes obligó a reprogramar entrevistas. Convendría estudiar, con equipos directivos, qué condiciones institucionales explican las diferencias de apoyo que los docentes describieron, porque este estudio solo recogió la percepción de quienes están en el aula.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- FASE 3 · PRÁCTICA -->
+<section id="practica">
+  <div>
+    <span class="eyebrow ey-morado">Fase 3 · Práctica guiada</span>
+    <h2 class="h2">Elige la versión mejor sustentada</h2>
+    <p class="lead">Dos casos frecuentes al cerrar un objetivo. Elige la opción que se sostiene en los resultados.</p>
+    <div id="quizPractica"></div>
+  </div>
+</section>
+
+<section id="arreglos" class="alt">
+  <div>
+    <span class="eyebrow ey-morado">Fase 3 · Práctica guiada</span>
+    <h2 class="h2">Dos precisiones a considerar</h2>
+    <p class="lead">Aparecen en la conclusión que revisaste y en la mayoría de los informes. Tenlas en cuenta antes de escribir la tuya.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3 class="h3">Salir de la primera persona</h3>
+        <p style="margin-bottom:14px">En investigación, quien escribe no es protagonista, lo es el estudio. El cambio no le quita fuerza a lo que se afirma, mueve el centro de la frase.</p>
+        <details class="plegable" style="margin:0">
+          <summary>Ver cuatro frases reescritas</summary>
+          <div id="persona" style="display:grid;gap:10px"></div>
+        </details>
+      </div>
+      <div class="card">
+        <h3 class="h3">Equilibrar la extensión</h3>
+        <p style="margin-bottom:14px">En la conclusión original, el relato de las gestiones con los establecimientos ocupaba más espacio que todos los hallazgos juntos. Quien lee las conclusiones quiere saber qué se encontró.</p>
+        <details class="plegable" style="margin:0">
+          <summary>Ver el antes y el después</summary>
+          <div class="ba">
+            <div class="ba-box ba-mal"><span class="et">Así estaba, 380 palabras</span>"Primeramente, en relación a los establecimientos considerados, nos vimos en obligación de cambiar uno de ellos, dado que el director no se encontraba presente, tuvimos que hablar con la subdirectora… y sigue durante cinco párrafos más."</div>
+            <div class="ba-box ba-bien"><span class="et">Así basta, 45 palabras</span>"Facilitó el trabajo que uno de los establecimientos contara con una persona designada para autorizar proyectos de tesis. Lo dificultaron el cambio de dirección en el otro establecimiento y la disponibilidad horaria de los docentes, lo que obligó a reprogramar entrevistas."</div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FASE 4 · ESCRIBE -->
+<section id="plantilla" style="background:#eef5fc">
+  <div>
+    <span class="eyebrow ey-azul">Fase 4 · Escribe y descarga</span>
+    <h2 class="h2">Escribe tus conclusiones</h2>
+    <p class="lead">Completa primero el objetivo general, luego cada objetivo específico y al final la síntesis. Nada de lo que escribas aquí debería ser nuevo, cada parte sale de un capítulo que ya existe. Con "Ver mi texto" revisas cómo queda todo unido. Al final, descarga tu texto en Word.</p>
+    <p class="aviso-guardado"><strong>Lo que escribas se guarda solo en este navegador y en este computador.</strong> Si cambias de equipo o borras el historial, se pierde. Descarga el Word cada vez que termines.</p>
+
+    <div id="tplGeneral"></div>
+    <div id="tplEspecificos"></div>
+    <button type="button" class="ghost-btn" id="addEspecifico">+ Agregar objetivo específico</button>
+    <div id="tplSintesis" style="margin-top:22px"></div>
+
+    <div class="card" style="margin-top:8px">
+      <h3 class="h3">Revisa y descarga</h3>
+      <label class="check" style="border:0;padding:0 0 14px;background:transparent">
+        <input type="checkbox" id="apartadosChk">
+        <span>Mostrar los apartados (Objetivo general, Objetivos específicos y Síntesis) en el documento descargado. Úsalos solo en tu borrador y elimínalos en la versión final del informe.</span>
+      </label>
+      <div class="acciones">
+        <button type="button" class="sec-btn" id="verTextoBtn" aria-expanded="false" aria-controls="vistaWrap">Ver mi texto</button>
+        <button type="button" class="primary-btn" id="wordBtn">Descargar en Word (.docx)</button>
+        <button type="button" class="del-btn" id="borrarBtn">Borrar mi borrador</button>
+      </div>
+      <p class="nota" id="estadoGuardado" aria-live="polite" style="margin:10px 0 0"></p>
+      <div id="vistaWrap" hidden>
+        <div id="senales" class="senales" aria-live="polite"></div>
+        <div id="vistaTexto" class="vista-previa"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FASE 5 · REVISA -->
+<section id="errores">
+  <div>
+    <span class="eyebrow ey-verde">Fase 5 · Revisa</span>
+    <h2 class="h2">Lo que debilita unas conclusiones</h2>
+    <p class="lead">Siete problemas que aparecen todos los semestres. Se muestra primero el error. Abre cada tarjeta cuando quieras ver cómo se arregla.</p>
+    <div class="errores" id="listaErrores"></div>
+  </div>
+</section>
+
+<section id="autoeval" class="alt">
+  <div>
+    <span class="eyebrow ey-verde">Fase 5 · Revisa</span>
+    <h2 class="h2">Lista de verificación final</h2>
+    <p class="lead">El primer bloque revisa las conclusiones que escribiste. El segundo revisa la coherencia de todo el informe. Lo que quede sin marcar es el trabajo que falta.</p>
+    <p class="nota" id="contadorCheck" aria-live="polite" style="margin:-10px 0 14px"></p>
+    <div id="listaCheck"></div>
+    <details class="plegable refs" style="margin-top:28px">
+      <summary>Fuentes de esta guía</summary>
+      <p>Bunton, D. (2005). The structure of PhD conclusion chapters. <em>Journal of English for Academic Purposes, 4</em>(3), 207–224. https://doi.org/10.1016/j.jeap.2005.03.004</p>
+      <p>Difabio de Anglat, H., y Álvarez, G. (2022). Las conclusiones de la tesis doctoral en educación, sus movimientos y pasos retóricos. <em>Areté, Revista Digital del Doctorado en Educación, 8</em>(16), 11–36. https://doi.org/10.55560/arete.2022.16.8.1</p>
+      <p>Guerrero del Pozo, V. (2021). <em>Las conclusiones (y la discusión) en las tesis, más que solo un resumen</em>. Universidad Andina Simón Bolívar, Sede Ecuador.</p>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:var(--tinta);color:#e9f2fb;padding:36px clamp(20px,6vw,56px);text-align:center">
+  <p style="margin:0 0 10px"><strong>Universidad de Los Lagos</strong> · Departamento de Educación · Seminario de Grado</p>
+  <small style="display:block;line-height:1.5">Esta obra de <strong>Jesús Sánchez Alvarado</strong> está bajo una <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" style="color:inherit">Licencia Creative Commons Atribución-NoComercial 4.0 Internacional</a>.</small>
+</footer>
+
+<script>
+const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const $ = s => document.querySelector(s);
+
+// ---------- NAVEGACIÓN ----------
+const NAV = [
+  ['antes','1 · Antes de empezar'], ['reconoce','1 · Reconoce'], ['estructura','2 · Estructura'], ['ejemplo','2 · Ejemplo'],
+  ['practica','3 · Práctica'], ['arreglos','3 · Precisiones'], ['plantilla','4 · Escribe'], ['errores','5 · Errores'], ['autoeval','5 · Verificación']
+];
+$('#navRow').innerHTML = NAV.map(([id, t]) => `<a class="navLink" href="#${id}" data-target="${id}">${t}</a>`).join('');
+const navLinks = [...document.querySelectorAll('.navLink')];
+if ('IntersectionObserver' in window) {
+  const visibles = new Set();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => e.isIntersecting ? visibles.add(e.target.id) : visibles.delete(e.target.id));
+    const actual = NAV.map(n => n[0]).find(id => visibles.has(id));
+    if (actual) navLinks.forEach(a => a.dataset.target === actual ? a.setAttribute('aria-current','true') : a.removeAttribute('aria-current'));
+  }, { rootMargin:'-80px 0px -60% 0px' });
+  NAV.forEach(([id]) => obs.observe(document.getElementById(id)));
+}
+
+// ---------- QUIZZES ----------
+function pintarQuiz(cont, items) {
+  cont.innerHTML = items.map((q, i) => `
+    <div class="quiz" data-q="${i}">
+      ${q.cita ? `<p class="quiz-cita mk${q.n}"><strong>Fragmento ${q.n}.</strong> ${esc(q.cita)}</p>` : ''}
+      <p class="quiz-p" id="${cont.id}-p${i}">${esc(q.pregunta)}</p>
+      <div class="quiz-ops" role="group" aria-labelledby="${cont.id}-p${i}">
+        ${q.opciones.map((o, j) => `<button type="button" class="opcion" data-o="${j}" aria-pressed="false">${esc(o)}</button>`).join('')}
+      </div>
+      <div class="fb" aria-live="polite"></div>
+    </div>`).join('');
+  cont.addEventListener('click', e => {
+    const b = e.target.closest('.opcion'); if (!b) return;
+    const box = b.closest('.quiz'); const q = items[+box.dataset.q]; const ok = +b.dataset.o === q.correcta;
+    box.querySelectorAll('.opcion').forEach(x => { x.setAttribute('aria-pressed','false'); x.classList.remove('ok','no'); });
+    b.setAttribute('aria-pressed','true'); b.classList.add(ok ? 'ok' : 'no');
+    const fb = box.querySelector('.fb');
+    fb.className = 'fb ' + (ok ? 'ok' : 'no');
+    fb.innerHTML = ok ? `<strong>✓ Correcto.</strong>${esc(q.explicacion)}` : `<strong>Revisa otra vez.</strong>${esc(q.pista)}`;
+  });
+}
+
+const PARTES = ['Objetivo general','Objetivos específicos','Limitaciones','Facilitadores','Proyecciones','Afirmación sin fundamento'];
+pintarQuiz($('#quizReconoce'), [
+  { n:1, cita:'"Esta investigación tuvo como principal objetivo analizar la percepción de docentes… pudimos concluir que se pudo alcanzar lo planteado en el objetivo general, ya que, gracias al instrumento que aplicamos, fuimos capaces de conocer en profundidad la percepción de los docentes."',
+    correcta:0, pista:'Fíjate en qué hace el fragmento. Está al comienzo y vuelve sobre algo que ya estaba planteado.',
+    explicacion:'Parte por el objetivo general, que es lo correcto. Pero justifica el logro con "gracias al instrumento", y aplicar un instrumento no muestra que el objetivo se logró. Lo muestran los resultados.' },
+  { n:2, cita:'"Del mismo modo, se logró cumplir todos los objetivos específicos presentados, los cuales fueron abordados con éxito."',
+    correcta:1, pista:'¿Sobre qué objetivos habla la frase?',
+    explicacion:'Intenta cerrar los objetivos específicos, pero solo declara que se cumplieron. Cada objetivo específico necesita su propio cierre, con el resultado que lo muestra.' },
+  { n:3, cita:'"Los profesores resaltaron la implementación ineficaz de las normativas educativas… aparecieron diferencias en el acceso a recursos según el liderazgo de cada establecimiento."',
+    correcta:1, pista:'Aquí aparece, por primera vez en el texto, lo que dijeron los entrevistados.',
+    explicacion:'Son los resultados que sustentan los objetivos específicos. El problema es que están todos juntos, sin decir a qué objetivo responde cada uno.' },
+  { n:4, cita:'"Inicialmente eran seis profesores y finalmente participaron cuatro… debimos modificar la muestra, que originalmente se centraba solamente en profesores de enseñanza media."',
+    correcta:2, pista:'Pregúntate si eso cambia lo que el estudio puede afirmar, y sobre quiénes.',
+    explicacion:'Cambia quiénes fueron estudiados, así que acota lo que se puede afirmar. Es una limitación. Está bien vista, pero conviene decir qué implica al leer los resultados.' },
+  { n:5, cita:'"Nos vimos en la obligación de cambiar uno de los establecimientos… En el segundo establecimiento la autorización se consiguió de inmediato… algunas entrevistas se cancelaron."',
+    correcta:3, pista:'¿Cambia lo que el estudio puede afirmar, o cuenta cómo fue el trabajo?',
+    explicacion:'Cuenta lo que ayudó y lo que dificultó el proceso. Eso va con los facilitadores, en tres o cuatro líneas y sin nombres ni cargos identificables.' },
+  { n:6, cita:'"Como futuras docentes, consideramos que ninguna persona debería lidiar con este tipo de abuso… Estimamos pertinente la implementación de una ley."',
+    correcta:5, pista:'Busca de dónde sale lo que se afirma. ¿Está en los resultados del estudio?',
+    explicacion:'Es una opinión del equipo y una propuesta legislativa. Nada de eso sale de las entrevistas, así que no puede aparecer en las conclusiones.' },
+  { n:7, cita:'"Nuestros hallazgos destacan la necesidad de implementar capacitación continua… este estudio aporta perspectivas valiosas para futuras investigaciones y el diseño de políticas educativas."',
+    correcta:4, pista:'Dice hacia dónde podría seguir lo que se encontró.',
+    explicacion:'Son proyecciones. La primera frase va bien encaminada, pero falta decir de qué resultado sale. La segunda anuncia futuras investigaciones sin nombrar ninguna.' }
+].map(q => Object.assign({ pregunta:'¿Qué parte de las conclusiones intenta cubrir?', opciones: PARTES }, q)));
+
+pintarQuiz($('#quizPractica'), [
+  { pregunta:'Objetivo específico: "Identificar las dificultades que reconocen los estudiantes al leer textos argumentativos." ¿Cuál cierre es mejor?',
+    opciones:[
+      'Se cumplió el objetivo, ya que se aplicó el cuestionario a todos los estudiantes.',
+      'El objetivo se logró. Los encuestados señalaron como principal dificultad identificar la tesis (64%), lo que coincide con lo descrito en el marco teórico sobre comprensión de textos argumentativos.',
+      'Los estudiantes de hoy leen poco y por eso no entienden los textos.'],
+    correcta:1, pista:'Busca la opción que diga si se logró, con un resultado concreto y una referencia al marco teórico.',
+    explicacion:'Indica el logro, lo muestra con un dato del estudio y lo conecta con el marco teórico. Aplicar el cuestionario no muestra el logro, y la tercera es una opinión que generaliza.' },
+  { pregunta:'El instrumento no permitió conocer la opinión de los apoderados, que era parte de un objetivo específico. ¿Cómo se cierra ese objetivo?',
+    opciones:[
+      'Se omite ese objetivo en las conclusiones.',
+      'Se afirma que el objetivo se logró igual, porque se respondieron los demás.',
+      'Se indica que se logró parcialmente, se dice qué parte sí se pudo describir y por qué faltó la otra.'],
+    correcta:2, pista:'Un logro parcial también es un resultado válido. ¿Qué opción lo reconoce con transparencia?',
+    explicacion:'Decir que un objetivo se logró parcialmente, y por qué, es honesto y aporta información útil. Esa razón también puede aparecer en las limitaciones.' }
+]);
+
+// ---------- ESTRUCTURA ----------
+const PASOS = [
+  { n:1, t:'Objetivo general', c:'var(--azul)', d:'Parte por aquí. Indica si el objetivo se logró, se logró parcialmente o no se logró, y qué resultados permiten afirmarlo.',
+    va:['El objetivo general, dicho con tus palabras de ahora.','El grado de logro, junto al resultado que lo muestra.','Si te sirve, una frase final que responda tu pregunta de investigación.'],
+    noVa:['Justificar el logro con el instrumento aplicado.','El resumen del marco teórico o de la metodología.'] },
+  { n:2, t:'Objetivos específicos', c:'var(--morado)', d:'Sigue con cada objetivo específico, en el mismo orden en que los planteaste, con la misma lógica que el objetivo general.',
+    va:['Un párrafo por objetivo específico.','Los resultados clave, ya interpretados en tu discusión, en una o dos frases.','Los autores de tu marco teórico que respaldan ese resultado.'],
+    noVa:['Cifras o citas que no aparecieron antes en los resultados.','Autores nuevos.','Todos los resultados juntos, sin decir a qué objetivo responden.'] },
+  { n:3, t:'Síntesis final', c:'var(--verde-texto)', d:'Cierra con una síntesis breve de las limitaciones, los facilitadores y las proyecciones de tu investigación.',
+    va:['Limitaciones, lo que acota lo que el estudio puede afirmar, y qué implica.','Facilitadores, lo que ayudó en el proceso, y si quieres, lo que lo dificultó.','Proyecciones que se puedan convertir en una pregunta de investigación.'],
+    noVa:['El relato completo de las gestiones.','Nombres o cargos identificables.','"Se recomienda seguir investigando el tema."'] }
+];
+const lista = a => `<ul>${a.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`;
+$('#pasos').innerHTML = PASOS.map(p => `<div class="paso" style="--c:${p.c}">
+  <span class="num" aria-hidden="true">${p.n}</span><h3>${esc(p.t)}</h3><p>${esc(p.d)}</p>
+  <details><summary>Qué va y qué no va</summary><div class="vanova"><strong>Va</strong>${lista(p.va)}<strong>No va</strong>${lista(p.noVa)}</div></details></div>`).join('');
+
+// ---------- PRIMERA PERSONA ----------
+const PERSONA = [
+  ['"pudimos concluir que se pudo alcanzar lo planteado en el objetivo general"', '"los resultados permiten afirmar que el objetivo general se logró"'],
+  ['"gracias al instrumento que aplicamos, fuimos capaces de conocer"', '"la entrevista semiestructurada permitió conocer"'],
+  ['"nuestros hallazgos destacan la necesidad de"', '"los hallazgos muestran la necesidad de"'],
+  ['"nos vimos en la obligación de cambiar uno de los establecimientos"', '"fue necesario reemplazar uno de los establecimientos"']
+];
+$('#persona').innerHTML = PERSONA.map(([a, b]) => `<div class="ba"><div class="ba-box ba-mal"><span class="et">Como está</span>${esc(a)}</div><div class="ba-box ba-bien"><span class="et">Como conviene</span>${esc(b)}</div></div>`).join('');
+
+// ---------- PLANTILLA ----------
+const CLAVE = 'ulagos_conclusiones_borrador_v1';
+const LOGROS = [['si','Se logró'],['parcial','Se logró parcialmente'],['no','No se logró']];
+const FRASE_LOGRO = { si:'se logró', parcial:'se logró parcialmente', no:'no se logró' };
+const CHIPS = {
+  res: ['Los resultados muestran que…','En la categoría…, los entrevistados señalaron que…','Un …% de los encuestados…','Esto se debe a que… (si no se logró del todo)'],
+  teo: ['Esto es coherente con lo planteado por … (año), quien…','Estos resultados concuerdan con …','A diferencia de lo señalado por … (año),…'],
+  preg:['En síntesis, la pregunta de investigación se responde así, …'],
+  lim: ['Los resultados describen a … y no se extienden a …','Al tratarse de una muestra por conveniencia,…','Respecto de lo planificado,…'],
+  fac: ['Facilitó el trabajo…','Lo dificultaron…, lo que obligó a…'],
+  pro: ['Convendría estudiar…, porque este estudio solo alcanzó a…','Una segunda línea es…','Para la práctica pedagógica, dado que se encontró…, conviene…']
+};
+const vacio = () => ({ objetivo:'', logro:'', resultados:'', teoria:'' });
+let datos = { general: vacio(), especificos: [vacio()], limitaciones:'', facilitadores:'', proyecciones:'', check:{} };
+try {
+  const g = JSON.parse(localStorage.getItem(CLAVE) || 'null');
+  if (g && typeof g === 'object') datos = Object.assign(datos, g, {
+    general: Object.assign(vacio(), g.general || {}),
+    especificos: Array.isArray(g.especificos) && g.especificos.length ? g.especificos : [vacio()],
+    check: g.check && typeof g.check === 'object' ? g.check : {}
+  });
+} catch (e) {}
+let tGuardar;
+function guardar() {
+  clearTimeout(tGuardar);
+  tGuardar = setTimeout(() => {
+    try { localStorage.setItem(CLAVE, JSON.stringify(datos)); $('#estadoGuardado').textContent = 'Guardado en este navegador.'; }
+    catch (e) { $('#estadoGuardado').textContent = 'No se pudo guardar en este navegador. Descarga tu Word.'; }
+  }, 400);
+}
+const chips = (tipos, campoId) => `<div class="chips" role="group" aria-label="Frases de inicio (opcional)">${tipos.flatMap(t => CHIPS[t]).map(c => `<button type="button" class="chipBtn" data-insertar="${esc(c)}" data-campo="${campoId}">${esc(c)}</button>`).join('')}</div>`;
+
+function tarjetaObjetivo(o, pref, titulo, color, borrable, general) {
+  return `<div class="tpl" style="--c:${color}">
+    <div class="tpl-head"><h3>${esc(titulo)}</h3>${borrable ? `<button type="button" class="del-btn" data-borrar="${pref}">Quitar este objetivo</button>` : ''}</div>
+    <p class="tpl-fuente">Sale de tus objetivos, de tus resultados y de tu discusión.</p>
+    <div class="campo"><label for="${pref}-objetivo">El objetivo, tal como está en tu informe</label>
+      <input type="text" id="${pref}-objetivo" data-ruta="${pref}.objetivo" value="${esc(o.objetivo)}"></div>
+    <fieldset class="campo"><legend>¿Se logró?</legend>
+      <div class="logro">${LOGROS.map(([v, t]) => `<label><input type="radio" name="${pref}-logro" value="${v}" data-ruta="${pref}.logro" ${o.logro === v ? 'checked' : ''}>${t}</label>`).join('')}</div></fieldset>
+    <div class="campo"><label for="${pref}-resultados">Resultados que lo muestran</label>
+      <p class="ayuda" id="${pref}-resultados-ay">Retoma en una o dos frases los resultados clave, sin cifras ni citas nuevas. Si se logró parcialmente o no se logró, explica por qué.</p>
+      <textarea id="${pref}-resultados" data-ruta="${pref}.resultados" aria-describedby="${pref}-resultados-ay">${esc(o.resultados)}</textarea>${chips(general ? ['res','preg'] : ['res'], pref + '-resultados')}</div>
+    <div class="campo"><label for="${pref}-teoria">Referente teórico que lo respalda</label>
+      <p class="ayuda" id="${pref}-teoria-ay">Una frase con los autores de tu marco teórico que ya usaste en la discusión. No es el lugar para autores nuevos.</p>
+      <textarea id="${pref}-teoria" data-ruta="${pref}.teoria" aria-describedby="${pref}-teoria-ay">${esc(o.teoria)}</textarea>${chips(['teo'], pref + '-teoria')}</div>
+  </div>`;
+}
+function pintarPlantilla() {
+  $('#tplGeneral').innerHTML = tarjetaObjetivo(datos.general, 'general', '1 · Objetivo general', 'var(--azul)', false, true);
+  $('#tplEspecificos').innerHTML = datos.especificos.map((o, i) => tarjetaObjetivo(o, 'esp' + i, `2 · Objetivo específico ${i + 1}`, 'var(--morado)', datos.especificos.length > 1, false)).join('');
+  const s = (k, t, ayuda, tipo) => `<div class="campo"><label for="sin-${k}">${t}</label><p class="ayuda" id="sin-${k}-ay">${ayuda}</p>
+    <textarea id="sin-${k}" data-ruta="${k}" aria-describedby="sin-${k}-ay">${esc(datos[k])}</textarea>${chips([tipo], 'sin-' + k)}</div>`;
+  $('#tplSintesis').innerHTML = `<div class="tpl" style="--c:var(--verde-texto)"><div class="tpl-head"><h3>3 · Síntesis final</h3></div>
+    <p class="tpl-fuente">Breve, más corta que la parte de los objetivos.</p>
+    ${s('limitaciones','Limitaciones','Sale de tu diseño metodológico y de lo que cambió en el trabajo de campo. Di qué acota cada limitación, por ejemplo, a quiénes describen los resultados.','lim')}
+    ${s('facilitadores','Facilitadores','Lo que ayudó a llevar a cabo la investigación. Si quieres, agrega en una frase lo que la dificultó. Tres o cuatro líneas, sin nombres ni cargos identificables.','fac')}
+    ${s('proyecciones','Proyecciones','Qué convendría estudiar después o qué se desprende para la práctica pedagógica, siempre a partir de un resultado o una limitación de tu estudio.','pro')}</div>`;
+}
+function obj(ruta) { const [p] = ruta.split('.'); return p === 'general' ? datos.general : datos.especificos[+p.slice(3)]; }
+function setRuta(ruta, valor) { if (ruta.includes('.')) obj(ruta)[ruta.split('.')[1]] = valor; else datos[ruta] = valor; guardar(); actualizarVista(); }
+$('#plantilla').addEventListener('input', e => { const r = e.target.dataset.ruta; if (r) setRuta(r, e.target.value); });
+$('#plantilla').addEventListener('change', e => { const r = e.target.dataset.ruta; if (r && e.target.type === 'radio') setRuta(r, e.target.value); });
+$('#plantilla').addEventListener('click', e => {
+  const chip = e.target.closest('[data-insertar]');
+  if (chip) {
+    const ta = document.getElementById(chip.dataset.campo);
+    const ins = chip.dataset.insertar.replace(/ \(si no se logró del todo\)$/, '');
+    const pos = ta.selectionStart ?? ta.value.length;
+    const antes = ta.value.slice(0, pos); const sep = antes && !/\s$/.test(antes) ? ' ' : '';
+    ta.value = antes + sep + ins + ta.value.slice(pos);
+    setRuta(ta.dataset.ruta, ta.value); ta.focus();
+    const c = ta.value.indexOf('…', pos); if (c > -1) ta.setSelectionRange(c, c + 1);
+    return;
+  }
+  const del = e.target.closest('[data-borrar]');
+  if (del) {
+    const i = +del.dataset.borrar.slice(3); const o = datos.especificos[i];
+    if ((o.objetivo || o.resultados || o.teoria) && !confirm('¿Quitar este objetivo específico? Se borrará lo que escribiste en él.')) return;
+    datos.especificos.splice(i, 1); guardar(); pintarPlantilla(); actualizarVista(); $('#addEspecifico').focus();
+  }
+});
+$('#addEspecifico').addEventListener('click', () => {
+  datos.especificos.push(vacio()); guardar(); pintarPlantilla();
+  document.getElementById('esp' + (datos.especificos.length - 1) + '-objetivo').focus();
+});
+$('#borrarBtn').addEventListener('click', () => {
+  if (!confirm('¿Borrar todo lo que escribiste en las conclusiones? Esta acción no se puede deshacer. Si no lo has hecho, descarga antes tu Word.')) return;
+  datos = { general: vacio(), especificos: [vacio()], limitaciones:'', facilitadores:'', proyecciones:'', check: datos.check };
+  guardar(); pintarPlantilla(); actualizarVista(); $('#estadoGuardado').textContent = 'Se borró tu borrador.';
+});
+
+// Texto corrido
+const limpiar = t => (t || '').trim();
+const punto = t => { t = limpiar(t); return t && !/[.!?…]$/.test(t) ? t + '.' : t; };
+const sinPunto = t => limpiar(t).replace(/[.]$/, '');
+function parrafoObjetivo(o, nombre) {
+  const partes = [];
+  if (limpiar(o.objetivo) || o.logro) partes.push(`${nombre}${limpiar(o.objetivo) ? `, ${sinPunto(o.objetivo).replace(/^./, c => c.toLowerCase())},` : ''} ${o.logro ? FRASE_LOGRO[o.logro] : '[indica si se logró]'}.`);
+  [o.resultados, o.teoria].forEach(t => { if (limpiar(t)) partes.push(punto(t)); });
+  return partes.join(' ');
+}
+const ORD = ['primer','segundo','tercer','cuarto','quinto','sexto'];
+function bloques() {
+  const esp = datos.especificos.map((o, i) => parrafoObjetivo(o, `El ${ORD[i] || (i + 1) + '.º'} objetivo específico`)).filter(Boolean);
+  const sin = [datos.limitaciones, datos.facilitadores, datos.proyecciones].map(punto).filter(Boolean).join(' ');
+  return [['Objetivo general', [parrafoObjetivo(datos.general, 'El objetivo general')].filter(Boolean)], ['Objetivos específicos', esp], ['Síntesis', sin ? [sin] : []]];
+}
+// Señales de forma: miran la forma, no la calidad del argumento
+function senales() {
+  const todo = bloques().flatMap(b => b[1]).join(' ');
+  const s = [];
+  if (/\b(nosotr[oa]s|nuestr[oa]s?|pudimos|logramos|creemos|consideramos|estimamos|buscábamos)\b/i.test(todo)) s.push('Hay frases en primera persona (nosotros, nuestro, pudimos…). Prueba con la forma impersonal.');
+  if (/queda demostrado|está comprobado|es evidente que|sin duda/i.test(todo)) s.push('Hay afirmaciones absolutas ("queda demostrado", "es evidente que"). Un estudio de este tamaño describe, no demuestra.');
+  if (/seguir investigando/i.test(todo)) s.push('"Seguir investigando" sirve para cualquier estudio. Di qué convendría estudiar y con quiénes.');
+  [datos.general, ...datos.especificos].forEach((o, i) => {
+    const n = i ? `El objetivo específico ${i}` : 'El objetivo general';
+    if (o.logro && !limpiar(o.resultados)) s.push(`${n} dice si se logró, pero no muestra con qué resultado.`);
+    if (limpiar(o.resultados) && !limpiar(o.teoria)) s.push(`${n} no tiene referente teórico.`);
+  });
+  const largoObj = [datos.general, ...datos.especificos].map(o => limpiar(o.resultados) + limpiar(o.teoria)).join('').length;
+  const largoSin = (limpiar(datos.limitaciones) + limpiar(datos.facilitadores) + limpiar(datos.proyecciones)).length;
+  if (largoSin > 80 && largoSin > largoObj) s.push('La síntesis final es más extensa que la parte de los objetivos. Conviene acortarla.');
+  return s;
+}
+function actualizarVista() {
+  if ($('#vistaWrap').hidden) return;
+  const txt = bloques().flatMap(b => b[1]).join('\n\n');
+  $('#vistaTexto').textContent = txt || 'Todavía no has escrito nada.';
+  const s = txt ? senales() : [];
+  $('#senales').hidden = !s.length;
+  $('#senales').innerHTML = s.length ? `<strong>Señales de forma.</strong> Miran la forma, no la calidad de tu argumento.<ul>${s.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : '';
+}
+$('#verTextoBtn').addEventListener('click', () => {
+  const v = $('#vistaWrap'); v.hidden = !v.hidden;
+  $('#verTextoBtn').setAttribute('aria-expanded', String(!v.hidden));
+  $('#verTextoBtn').textContent = v.hidden ? 'Ver mi texto' : 'Ocultar mi texto';
+  actualizarVista();
+});
+$('#wordBtn').addEventListener('click', async () => {
+  const est = $('#estadoGuardado');
+  if (typeof docx === 'undefined') { est.textContent = 'No se pudo cargar la herramienta de Word. Revisa tu conexión y recarga la página.'; return; }
+  const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } = docx;
+  const conApartados = $('#apartadosChk').checked;
+  const hijos = [new Paragraph({ text:'Conclusiones', heading: HeadingLevel.HEADING_1, spacing:{ after:240 } })];
+  bloques().forEach(([titulo, parrafos]) => {
+    if (!parrafos.length) return;
+    if (conApartados) hijos.push(new Paragraph({ text: titulo, heading: HeadingLevel.HEADING_2, spacing:{ before:200, after:120 } }));
+    parrafos.forEach(p => hijos.push(new Paragraph({ children:[new TextRun({ text:p, font:'Arial', size:24 })], alignment: AlignmentType.JUSTIFIED, spacing:{ after:200, line:360 } })));
+  });
+  try {
+    const blob = await Packer.toBlob(new Document({ sections:[{ children: hijos }] }));
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'conclusiones.docx'; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    est.textContent = 'Documento de Word descargado.';
+  } catch (e) { est.textContent = 'No se pudo generar el archivo de Word. Vuelve a intentarlo en unos segundos.'; }
+});
+pintarPlantilla();
+
+// ---------- ERRORES ----------
+const ERRORES = [
+  { t:'Declarar el logro sin mostrar el resultado', mal:'"Se logró cumplir todos los objetivos específicos presentados, los cuales fueron abordados con éxito."',
+    bien:'Indica si cada objetivo se logró y, en la misma frase o en la siguiente, qué resultado lo muestra. Si se logró parcialmente, dilo y explica por qué.' },
+  { t:'Escribir en primera persona', mal:'"Pudimos concluir", "nuestros hallazgos", "nos vimos en la obligación".',
+    bien:'Usa la forma impersonal, o pon el estudio y los resultados como sujeto. El foco pasa del equipo al estudio, que es lo que se evalúa.' },
+  { t:'Volver a interpretar, y con autores nuevos', mal:'Tres citas de autores nuevos en el párrafo de un objetivo, para explicar por qué los docentes respondieron así.',
+    bien:'Interpretar es trabajo de la discusión. En las conclusiones basta con retomar el resultado y mencionar, en una frase, al autor de tu marco teórico que lo respalda.' },
+  { t:'Confundir la limitación con la dificultad del equipo', mal:'"Una limitación fue que algunos docentes cancelaron la entrevista por temas de horario."',
+    bien:'Pregúntate si eso cambia lo que el estudio puede afirmar. Que cueste coordinar va con los facilitadores y dificultades. Que participen cuatro en vez de seis sí es una limitación.' },
+  { t:'Generalizar más allá de quienes participaron', mal:'"Los docentes de la comuna no reciben apoyo institucional suficiente."',
+    bien:'"Los cuatro docentes entrevistados describen un apoyo institucional insuficiente." Con muestreo por conveniencia, las conclusiones valen para ese grupo y ese contexto.' },
+  { t:'Proyecciones sin contenido', mal:'"Aporta perspectivas valiosas para futuras investigaciones." "Se recomienda seguir investigando el tema."',
+    bien:'Una proyección se reconoce porque se puede convertir en una pregunta de investigación. Di qué convendría estudiar, con quiénes y por qué.' },
+  { t:'Opinar sin fundamento', mal:'"Consideramos que ninguna persona debería vivir esto. Estimamos pertinente la implementación de una ley."',
+    bien:'Las conclusiones solo afirman lo que sale de los resultados. La motivación por el tema tenía su lugar en la justificación del problema, al comienzo del informe.' }
+];
+$('#listaErrores').innerHTML = ERRORES.map((e, i) => `<div class="err"><span class="n" aria-hidden="true">${i + 1}</span><h3>${esc(e.t)}</h3>
+  <p class="mal">${esc(e.mal)}</p><details><summary>Cómo se arregla</summary><p class="bien">${esc(e.bien)}</p></details></div>`).join('');
+
+// ---------- LISTA DE VERIFICACIÓN ----------
+const CHECK = [
+  { g:'Tus conclusiones', items:[
+    'Partí por el objetivo general, dicho con mis palabras de ahora.',
+    'Cerré cada objetivo específico, en el mismo orden en que los planteé.',
+    'Para cada objetivo indiqué si se logró, se logró parcialmente o no se logró.',
+    'Cada logro se muestra con un resultado que ya aparece en mi capítulo de resultados, sin cifras ni citas nuevas.',
+    'Relacioné las conclusiones con autores de mi marco teórico, sin traer autores nuevos.',
+    'No hay opiniones personales ni afirmaciones sin fundamento, y no extiendo las conclusiones a quienes no participaron.',
+    'Está escrita en forma impersonal, sin nosotros, nuestro ni pudimos.',
+    'Cerré con una síntesis de limitaciones, facilitadores y proyecciones, más breve que la parte de los objetivos.',
+    'Las proyecciones se pueden convertir en una pregunta de investigación.',
+    'Se lee de corrido, sin los apartados del borrador.'] },
+  { g:'La coherencia de todo el informe', items:[
+    'La pregunta de investigación es la misma en el planteamiento, en los resultados y en las conclusiones.',
+    'Cada objetivo específico tiene resultados, discusión y conclusión. Ninguno quedó sin respuesta.',
+    'Las categorías o dimensiones se llaman igual en el instrumento, en los resultados, en la discusión y en las conclusiones.',
+    'Todas las citas utilizadas están en la bibliografía, en APA 7.'] }
+];
+const totalCheck = CHECK.reduce((n, g) => n + g.items.length, 0);
+const contar = () => { $('#contadorCheck').textContent = `${Object.values(datos.check).filter(Boolean).length} de ${totalCheck} revisados.`; };
+let k = 0;
+$('#listaCheck').innerHTML = CHECK.map(g => `<h3 class="h3" style="margin:18px 0 10px">${esc(g.g)}</h3><div style="display:grid;gap:10px">${g.items.map(c => { const i = k++; return `<label class="check"><input type="checkbox" data-check="${i}" ${datos.check[i] ? 'checked' : ''}><span>${esc(c)}</span></label>`; }).join('')}</div>`).join('');
+$('#listaCheck').addEventListener('change', e => {
+  const i = e.target.dataset.check; if (i == null) return;
+  datos.check[i] = e.target.checked; guardar(); contar();
+});
+contar();
+</script>
+</body>
+</html>
